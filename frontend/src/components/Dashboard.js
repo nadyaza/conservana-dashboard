@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Bar } from 'react-chartjs-2';
+import { Bar, Pie } from 'react-chartjs-2';
+import '../styles/Dashboard.css';  // Mengimpor file CSS untuk styling
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,6 +11,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  ArcElement,
 } from 'chart.js';
 
 // Register the necessary components for charts
@@ -18,7 +21,8 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  ArcElement
 );
 
 const Dashboard = () => {
@@ -49,6 +53,7 @@ const Dashboard = () => {
 
     fetchData();
   }, []);
+
 
   // If loading or error occurs
   if (loading) return <p>Loading...</p>;
@@ -107,14 +112,28 @@ const Dashboard = () => {
 
   // Menghitung jumlah total responden (mengurangi header)
   const totalResponden = data.length - 1;
-
+  
   // Data for the charts
   const usiaChartData = {
     labels: Object.keys(usiaCount),
     datasets: [{
       label: 'Jumlah Responden Berdasarkan Usia',
       data: Object.values(usiaCount),
-      backgroundColor: 'rgba(75, 192, 192, 0.6)',
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.6)',  // Warna untuk kategori pertama
+        'rgba(54, 162, 235, 0.6)',  // Warna untuk kategori kedua
+        'rgba(255, 206, 86, 0.6)',  // Warna untuk kategori ketiga
+        'rgba(75, 192, 192, 0.6)',  // Warna untuk kategori keempat
+        // Tambahkan lebih banyak warna jika diperlukan
+      ],
+      borderColor: [
+        'rgba(255, 99, 132, 1)',  // Warna border untuk kategori pertama
+        'rgba(54, 162, 235, 1)',  // Warna border untuk kategori kedua
+        'rgba(255, 206, 86, 1)',  // Warna border untuk kategori ketiga
+        'rgba(75, 192, 192, 1)',  // Warna border untuk kategori keempat
+        // Tambahkan lebih banyak warna jika diperlukan
+      ],
+      borderWidth: 1,
     }],
   };
 
@@ -177,7 +196,15 @@ const Dashboard = () => {
     datasets: [{
       label: 'Jumlah Responden yang Menabung',
       data: Object.values(menabungCount),
-      backgroundColor: 'rgba(75, 192, 192, 0.6)',
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.6)',  // Warna untuk kategori pertama
+        'rgba(54, 162, 235, 0.6)',  // Warna untuk kategori kedua
+      ],
+      borderColor: [
+        'rgba(255, 99, 132, 1)',  // Warna border untuk kategori pertama
+        'rgba(54, 162, 235, 1)',  // Warna border untuk kategori kedua
+      ],
+      borderWidth: 1,
     }],
   };
 
@@ -192,54 +219,59 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
-      <h2>Total Responden: {totalResponden}</h2>
-
-      <h2>Distribusi Usia Responden</h2>
-      <div className="chart-container">
-        <Bar data={usiaChartData} />
-      </div>
-
-      <h2>Distribusi Jenis Kelamin Responden</h2>
-      <div className="chart-container">
-        <Bar data={jenisKelaminChartData} />
-      </div>
-
-      <h2>Distribusi Lokasi Responden</h2>
-      <div className="chart-container">
-        <Bar data={lokasiChartData} />
-      </div>
-
-      <h2>Distribusi Tingkat Pendidikan Responden</h2>
-      <div className="chart-container">
-        <Bar data={pendidikanChartData} />
-      </div>
-
-      <h2>Distribusi Profesi Utama Responden</h2>
-      <div className="chart-container">
-        <Bar data={profesiChartData} />
-      </div>
-
-      <h2>Distribusi Lama Berprofesi/Usaha</h2>
-      <div className="chart-container">
-        <Bar data={lamaUsahaChartData} />
-      </div>
-
-      <h2>Distribusi Penghasilan Bulanan</h2>
-      <div className="chart-container">
-        <Bar data={penghasilanChartData} />
-      </div>
-
-      <h2>Responden yang Menabung</h2>
-      <div className="chart-container">
-        <Bar data={menabungChartData} />
-      </div>
-
-      <h2>Responden yang Pernah Mengambil Pinjaman</h2>
-      <div className="chart-container">
-        <Bar data={pinjamanChartData} />
+      
+      <h1>Welcome, to Dashboard Conservana!</h1>
+      <h2 className='total-responden'>Total Responden: {totalResponden}</h2>
+      
+      <div className="chart-grid">
+        <div className="chart-container">
+          <h2>Distribusi Usia Responden</h2>
+          <Pie data={usiaChartData} />
+        </div>
+  
+        <div className="chart-container">
+          <h2>Distribusi Jenis Kelamin Responden</h2>
+          <Bar data={jenisKelaminChartData} />
+        </div>
+  
+        <div className="chart-container">
+          <h2>Distribusi Lokasi Responden</h2>
+          <Bar data={lokasiChartData} />
+        </div>
+  
+        <div className="chart-container">
+          <h2>Distribusi Tingkat Pendidikan Responden</h2>
+          <Bar data={pendidikanChartData} />
+        </div>
+  
+        <div className="chart-container">
+          <h2>Distribusi Profesi Utama Responden</h2>
+          <Bar data={profesiChartData} />
+        </div>
+  
+        <div className="chart-container">
+          <h2>Distribusi Lama Berprofesi/Usaha</h2>
+          <Bar data={lamaUsahaChartData} />
+        </div>
+  
+        <div className="chart-container">
+          <h2>Distribusi Penghasilan Bulanan</h2>
+          <Bar data={penghasilanChartData} />
+        </div>
+  
+        <div className="chart-container">
+          <h2>Responden yang Menabung</h2>
+          <Pie data={menabungChartData} />
+        </div>
+  
+        <div className="chart-container">
+          <h2>Responden yang Pernah Mengambil Pinjaman</h2>
+          <Bar data={pinjamanChartData} />
+        </div>
       </div>
     </div>
   );
+  
 };
 
 export default Dashboard;
