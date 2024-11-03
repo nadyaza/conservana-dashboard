@@ -1,44 +1,134 @@
-// src/components/Login.js
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';  // Untuk melakukan navigasi setelah login
-import '../styles/Login.css';  // Mengimpor file CSS untuk styling
+/* General container styling for login page */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-const Login = () => {
-  const [username, setUsername] = useState('');  // State untuk menyimpan username
-  const [password, setPassword] = useState('');  // State untuk menyimpan password
-  const navigate = useNavigate();  // Hook untuk navigasi halaman
+body {
+  height: 100%;
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #007ACC, #00A4CC);
+  padding: 0 20px;
+}
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    // Validasi login dengan username dan password yang benar
-    if (username === 'admin' && password === 'admin123') {
-      navigate('/dashboard');  // Redirect ke halaman dashboard
-    } else {
-      alert('Invalid credentials!');  // Pesan kesalahan jika username atau password salah
-    }
-  };
+.dashboard-container { 
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  max-width: 100%; /* Memungkinkan layout penuh di layar */
+  margin: 0 auto;
+  gap: 20px; /* Mengatur jarak antar elemen di dalam container */
+  margin-top: 20px;
 
-  return (
-    <div className="login-container">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}  // Mengubah nilai username
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}  // Mengubah nilai password
-        />
-        <button type="submit">Login</button>
-      </form>
-    </div>
-  );
-};
 
-export default Login;
+  h1{
+    text-align: center;
+    color: white;
+  }
+}
+
+.total-responden{
+  color: white;
+}
+
+
+/* Login container styling */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 320px;
+  background: #ffffff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  margin-top: 160px;
+}
+
+/* Header styling inside login-container */
+.login-container h2 {
+  font-size: 24px;
+  color: black;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 20px;
+  position: absolute;
+  top: 170px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Input fields styling inside login-container */
+.login-container input[type="text"],
+.login-container input[type="password"] {
+  width: 85%;
+  margin: 12px 0;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  background-color: #f3faff;
+  transition: all 0.3s ease;
+}
+
+.login-container input[type="text"]:focus,
+.login-container input[type="password"]:focus {
+  border-color: #007ACC;
+  outline: none;
+}
+
+/* Button styling inside login-container */
+.login-container button {
+  width: 85%;
+  padding: 14px;
+  background-color: #007ACC;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.login-container button:hover {
+  background-color: #005B99;
+}
+
+/* Additional text styling for links inside login-container */
+.login-container .login-links {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #555555;
+}
+
+.login-container .login-links a {
+  color: #007ACC;
+  text-decoration: none;
+}
+
+.login-container .login-links a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .login-container {
+      padding: 30px 20px;
+  }
+
+  .login-container h2 {
+      font-size: 22px;
+  }
+
+  .login-container button {
+      padding: 12px;
+  }
+}
